@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_application_1/config/colors.dart';
+import 'package:flutter_application_1/config/sizes.dart';
 import 'package:flutter_application_1/model/db_helper/db_helper.dart';
 import 'package:flutter_application_1/widget/home/task_form.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -93,7 +95,7 @@ class _TaskPageState extends State<TaskPage> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text('Xác nhận xoá'),
+                            title: Text('Xác nhận yêu cầu'),
                             content:
                                 Text('Bạn có chắc muốn xoá công việc này?'),
                             actions: [
@@ -102,7 +104,19 @@ class _TaskPageState extends State<TaskPage> {
                                   deleteTask(task.id!);
                                   Navigator.pop(context);
                                 },
-                                child: Text('Xoá'),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: 70.0,
+                                  height: 40.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    color: TColors.red,
+                                  ),
+                                  child: Text(
+                                    'Xóa',
+                                    style: TextStyle(color: TColors.white),
+                                  ),
+                                ),
                               ),
                               TextButton(
                                 onPressed: () {
@@ -119,27 +133,41 @@ class _TaskPageState extends State<TaskPage> {
                     )
                   ],
                 ),
-                child: ListTile(
-                  title: Text(
-                    task.title!,
-                    style: Theme.of(context).textTheme.headlineSmall,
+                child: Container(
+                  margin: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: TColors.third,
                   ),
-                  subtitle: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Trạng thái: ' + task.status!),
-                      Text(task.date!),
-                    ],
+                  child: ListTile(
+                    title: Text(
+                      task.title!,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    subtitle: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Trạng thái: ' + task.status!,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        Text(
+                          task.date!,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
+                    onTap: () async {
+                      final Task? _updateTask = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TaskForm(task: task)));
+                      if (_updateTask != null) {
+                        updateTask(_updateTask);
+                      }
+                    },
                   ),
-                  onTap: () async {
-                    final Task? _updateTask = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TaskForm(task: task)));
-                    if (_updateTask != null) {
-                      updateTask(_updateTask);
-                    }
-                  },
                 ),
               );
             },

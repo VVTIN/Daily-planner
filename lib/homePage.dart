@@ -24,29 +24,31 @@ class _HomePageState extends State<HomePage> {
     final ThemeController themeController = Get.put(ThemeController());
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: TColors.blue,
-        centerTitle: true,
-        title: Text(
-          TTexts.logoName,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24.0,
-          ),
-        ),
-        actions: [
-          Obx(
-            () => IconButton(
-              onPressed: themeController.toggleTheme,
-              icon: Icon(themeController.isDarkMode.value
-                  ? Icons.dark_mode
-                  : Icons.light_mode),
-              color: TColors.yellow,
-            ),
-          ),
-        ],
-      ),
+      appBar: selectedIndex == 0
+          ? AppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: TColors.blue,
+              centerTitle: true,
+              title: Text(
+                TTexts.logoName,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24.0,
+                ),
+              ),
+              actions: [
+                Obx(
+                  () => IconButton(
+                    onPressed: themeController.toggleTheme,
+                    icon: Icon(themeController.isDarkMode.value
+                        ? Icons.dark_mode
+                        : Icons.light_mode),
+                    color: TColors.yellow,
+                  ),
+                ),
+              ],
+            )
+          : null,
       body: IndexedStack(
         index: selectedIndex,
         children: const [
