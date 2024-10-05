@@ -95,7 +95,7 @@ class _TaskPageState extends State<TaskPage> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text('Xác nhận xoá'),
+                            title: Text('Xác nhận yêu cầu'),
                             content:
                                 Text('Bạn có chắc muốn xoá công việc này?'),
                             actions: [
@@ -104,7 +104,19 @@ class _TaskPageState extends State<TaskPage> {
                                   deleteTask(task.id!);
                                   Navigator.pop(context);
                                 },
-                                child: Text('Xoá'),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: 70.0,
+                                  height: 40.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    color: TColors.red,
+                                  ),
+                                  child: Text(
+                                    'Xóa',
+                                    style: TextStyle(color: TColors.white),
+                                  ),
+                                ),
                               ),
                               TextButton(
                                 onPressed: () {

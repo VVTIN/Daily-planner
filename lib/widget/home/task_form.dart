@@ -108,7 +108,7 @@ class _TaskFormState extends State<TaskForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            widget.task != null ? 'Chỉnh sửa kế hoạch' : 'Tạo mới kế hoạch'),
+            widget.task != null ? 'Thông tin kế hoạch' : 'Tạo mới kế hoạch'),
       ),
       body: SingleChildScrollView(
         child: Padding(
