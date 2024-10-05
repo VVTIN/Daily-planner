@@ -8,12 +8,10 @@ class ThemeController extends GetxController {
 
   ThemeData get lightTheme => ThemeData(
         brightness: Brightness.light,
-        appBarTheme: const AppBarTheme(),
       );
 
   ThemeData get darkTheme => ThemeData(
         brightness: Brightness.dark,
-        appBarTheme: const AppBarTheme(),
       );
 
   void toggleTheme() {
