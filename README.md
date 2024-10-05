@@ -1,3 +1,3 @@
-# flutter_application_1
+# daily planner
 
 A new Flutter project.
