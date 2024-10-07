@@ -4,6 +4,7 @@ import 'package:flutter_application_1/config/colors.dart';
 import 'package:flutter_application_1/config/sizes.dart';
 import 'package:flutter_application_1/model/db_helper/db_helper.dart';
 import 'package:flutter_application_1/model/db_model/task.dart';
+import 'package:flutter_application_1/widget/home/selected_color.dart';
 
 class TaskForm extends StatefulWidget {
   const TaskForm({super.key, this.task});
@@ -23,7 +24,8 @@ class _TaskFormState extends State<TaskForm> {
       _approver,
       _startTime,
       _endTime,
-      _date;
+      _date,
+      _remind;
 
   void initState() {
     super.initState();
@@ -36,6 +38,7 @@ class _TaskFormState extends State<TaskForm> {
       _startTime = widget.task!.startTime;
       _endTime = widget.task!.endTime;
       _date = widget.task!.date;
+      _remind = widget.task!.remind;
     } else {
       _title = '';
       _content = '';
@@ -45,6 +48,7 @@ class _TaskFormState extends State<TaskForm> {
       _startTime = '';
       _endTime = '';
       _date = '';
+      _remind = '';
     }
   }
 
@@ -59,6 +63,7 @@ class _TaskFormState extends State<TaskForm> {
       endTime: _endTime,
       date: _date,
       id: widget.task?.id,
+      remind: _remind,
     );
 
     Navigator.pop(context, task);
@@ -103,6 +108,7 @@ class _TaskFormState extends State<TaskForm> {
     }
   }
 
+  int _selectedColor = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -171,7 +177,7 @@ class _TaskFormState extends State<TaskForm> {
               ),
               SizedBox(height: TSizes.spaceBtwItem),
 
-              //status
+              // //status
               DropdownButtonFormField(
                 items: ['Tạo mới', 'Thực hiện', 'Kết thúc']
                     .map((status) => DropdownMenuItem(
@@ -190,20 +196,6 @@ class _TaskFormState extends State<TaskForm> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25)),
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                ),
-              ),
-              SizedBox(height: TSizes.spaceBtwItem),
-
-              //approver
-              TextFormField(
-                controller: TextEditingController(text: _approver),
-                onChanged: (value) => _approver = value,
-                decoration: InputDecoration(
-                  labelText: 'Người phê duyệt',
-                  contentPadding: EdgeInsets.symmetric(horizontal: 25),
-                  border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
                 ),
@@ -239,6 +231,22 @@ class _TaskFormState extends State<TaskForm> {
                   child: Text(_date.isEmpty ? 'Ngày lên kế hoạch' : _date),
                   onPressed: _dateTime,
                 ),
+              ),
+              SizedBox(height: TSizes.spaceBtwItem),
+
+              //Remind
+              SelectedColor(
+                onColorSelected: (index) {
+                  setState(() {
+                    _selectedColor = index;
+                  });
+                },
+                onRemindSelected: (minute) {
+                  setState(() {
+                    _remind = minute;
+                  });
+                },
+                selectedColor: _selectedColor,
               ),
               SizedBox(height: TSizes.spaceBtwItem),
 

@@ -12,7 +12,7 @@ class SkipPage extends StatelessWidget {
       right: TSizes.defaultSpace,
       child: TextButton(
         onPressed: () => OnboardingController.instance.skipPage(),
-        child: const Text('Skip'),
+        child: const Text('Bỏ qua'),
       ),
     );
   }

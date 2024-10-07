@@ -7,6 +7,7 @@ import 'package:flutter_application_1/widget/home/task_form.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../model/db_model/task.dart';
+import '../widget/home/task_list.dart';
 
 class TaskPage extends StatefulWidget {
   const TaskPage({super.key});
@@ -82,97 +83,12 @@ class _TaskPageState extends State<TaskPage> {
           ),
           Divider(),
           Expanded(
-              child: ListView.builder(
-            itemCount: _filteredTasks.length,
-            itemBuilder: (context, index) {
-              final task = _filteredTasks[index];
-              return Slidable(
-                endActionPane: ActionPane(
-                  motion: BehindMotion(),
-                  children: [
-                    SlidableAction(
-                      onPressed: (context) => showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('Xác nhận yêu cầu'),
-                            content:
-                                Text('Bạn có chắc muốn xoá công việc này?'),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  deleteTask(task.id!);
-                                  Navigator.pop(context);
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  width: 70.0,
-                                  height: 40.0,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                    color: TColors.red,
-                                  ),
-                                  child: Text(
-                                    'Xóa',
-                                    style: TextStyle(color: TColors.white),
-                                  ),
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text('Hủy'),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                      icon: Icons.delete,
-                      backgroundColor: Colors.red,
-                    )
-                  ],
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: TColors.third,
-                    ),
-                    child: ListTile(
-                      title: Text(
-                        task.title!,
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      subtitle: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Trạng thái: ' + task.status!,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          Text(
-                            task.date!,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ],
-                      ),
-                      onTap: () async {
-                        final Task? _updateTask = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TaskForm(task: task)));
-                        if (_updateTask != null) {
-                          updateTask(_updateTask);
-                        }
-                      },
-                    ),
-                  ),
-                ),
-              );
-            },
-          )),
+            child: TaskList(
+              tasks: _filteredTasks,
+              onUpdate: updateTask,
+              onDelete: deleteTask,
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(

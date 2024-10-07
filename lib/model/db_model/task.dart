@@ -8,6 +8,7 @@ class Task {
   String date;
   String startTime;
   String endTime;
+  String remind;
 
   Task({
     this.id,
@@ -19,6 +20,7 @@ class Task {
     required this.date,
     required this.startTime,
     required this.endTime,
+    required this.remind,
   });
 
   factory Task.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,7 @@ class Task {
       date: json['date'] as String? ?? '',
       startTime: json['startTime'] as String? ?? '',
       endTime: json['endTime'] as String? ?? '',
+      remind: json['remind'] as String? ?? '',
     );
   }
 
@@ -46,6 +49,7 @@ class Task {
       'date': date,
       'startTime': startTime,
       'endTime': endTime,
+      'remind': remind,
     };
   }
 }

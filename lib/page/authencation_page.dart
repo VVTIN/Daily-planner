@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   late PageController pageController;
+  bool isSelectedColor = true;
 
   @override
   void initState() {
@@ -33,7 +34,6 @@ class _LoginPageState extends State<LoginPage> {
     pageController.dispose();
   }
 
-  bool isSelectedColor = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

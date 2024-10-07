@@ -17,7 +17,7 @@ class DatabaseHelper {
 
   Future<Database> initDatabase() async {
     final dbPath = await getDatabasesPath();
-    final path = join(dbPath, "db_daily.db");
+    final path = join(dbPath, "daily_planner.db");
     return openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
@@ -32,7 +32,8 @@ CREATE TABLE tasks(
     date TEXT,
     status TEXT,
     startTime TEXT,
-    endTime TEXT)''');
+    endTime TEXT,
+    remind TEXT)''');
   }
 
   Future<List<Task>> getAllTasks() async {

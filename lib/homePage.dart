@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/colors.dart';
 import 'package:flutter_application_1/config/texts.dart';
-import 'package:flutter_application_1/config/theme.dart';
+import 'package:flutter_application_1/model/controller/themeCtrl.dart';
 import 'package:flutter_application_1/page/calendar_page.dart';
 import 'package:flutter_application_1/page/setting_page.dart';
 import 'package:flutter_application_1/page/statistical_page.dart';
